@@ -1,10 +1,9 @@
 'use client'
-
 import { client } from "../../types/client.types";
 import { useForm } from "react-hook-form";
 
 
-function page() {
+const page = () => {
     const { register, formState: { errors } } = useForm<client>({
         defaultValues: {
             firstname: "",
