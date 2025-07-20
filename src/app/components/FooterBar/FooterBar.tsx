@@ -14,9 +14,6 @@ const FooterBar = () => {
           <div
             className="flex flex-col items-center space-y-8 md:items-start md:space-y-4"
           >
-            <div className="h-8">
-              <img src="./src/images/logo.svg" alt="" className="w-44 md:ml-3" />
-            </div>
             <div
               className="flex flex-col items-center space-y-4 font-bold text-white md:flex-row md:space-y-0 md:space-x-6 md:ml-3"
             >

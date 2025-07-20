@@ -1,9 +1,9 @@
-'use client'
+'use client';
 import { client } from "../../types/client.types";
 import { useForm } from "react-hook-form";
 
 
-const page = () => {
+const Page = () => {
     const { register, formState: { errors } } = useForm<client>({
         defaultValues: {
             firstname: "",
@@ -79,4 +79,4 @@ const page = () => {
     );
 }
 
-export default page;
+export default Page;
