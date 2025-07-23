@@ -43,8 +43,7 @@ const handler = NextAuth({
   providers: [
     SpotifyProvider({
       clientId: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID!,
-      //clientSecret: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET!,
-      clientSecret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET!,
+      clientSecret: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET!,
       authorization: {
         params: {
           scope: "user-read-email user-read-private user-top-read",
