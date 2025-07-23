@@ -1,7 +1,6 @@
 import { ExtendedToken, Token } from "@/types/next-auth";
 import NextAuth, { Account, User } from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
-import { JWT } from "next-auth/jwt";
 
 const refreshAccessToken = async (token: ExtendedToken): Promise<ExtendedToken> => {
   try {
@@ -44,7 +43,8 @@ const handler = NextAuth({
   providers: [
     SpotifyProvider({
       clientId: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID!,
-      clientSecret: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET!,
+      //clientSecret: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET!,
+      clientSecret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET!,
       authorization: {
         params: {
           scope: "user-read-email user-read-private user-top-read",
