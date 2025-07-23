@@ -28,7 +28,7 @@ export default function TopTracksPage() {
       const data = await res.json();
       setTracks(data.items);
     };
-
+    console.log("Session:", session);
     if (session?.accessToken) fetchTopTracks();
   }, [session?.accessToken]);
 
