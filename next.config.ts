@@ -5,6 +5,16 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["res.cloudinary.com"],
   },
+  remotePatterns: [
+    {
+      protocol: "https",
+      hostname: "i.scdn.co",
+    },
+    {
+      protocol: "https",
+      hostname: "mosaic.scdn.co",
+    },
+  ],
 };
 
 export default nextConfig;
