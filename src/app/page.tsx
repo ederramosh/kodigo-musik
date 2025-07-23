@@ -1,9 +1,29 @@
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Home() {
+  const { data: session } = useSession();
   return (
     <>
+    <section>
+    <div className="p-10">
+      {!session ? (
+        <button onClick={() => signIn("spotify")} className="bg-green-500 text-white p-3 rounded">
+          Login with Spotify
+        </button>
+      ) : (
+        <div>
+          <h1 className="text-2xl font-bold">Welcome, {session.user?.name}</h1>
+          <button onClick={() => signOut()} className="mt-4 bg-red-500 text-white p-2 rounded">
+            Logout
+          </button>
+        </div>
+      )}
+    </div>
+    </section>
     <section>
       <div
         className="relative container flex flex-col max-w-6xl mx-auto my-10 px-6 text-gray-900 md:flex-row md:p-0"
