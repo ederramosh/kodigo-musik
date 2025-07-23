@@ -1,8 +1,12 @@
+'use client'
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const NavigationBar = () => {
+    const { data: session } = useSession();
+    const isLoggedIn = !!session?.accessToken;
 
-    return(
+    return (
         <div className="flex flex-col items-center justify-center text-center md:flex-row md:justify-between md:items-center md:text-left px-6 py-20 shadow-md 
             bg-[url('https://res.cloudinary.com/dkf7ik9he/image/upload/v1752975865/image-hero_1_ahypah.jpg')]
             md:bg-[url('https://res.cloudinary.com/dkf7ik9he/image/upload/v1752975380/image-hero_q3wsb1.jpg')]
@@ -15,10 +19,12 @@ const NavigationBar = () => {
                     <Link className="hover:text-white hover:font-bold" href="/">Home</Link>
                     <div className="mx-2 group-hover:border-b group-hover:border-blue-500"></div>
                 </div>
-                <div className="group">
-                    <Link className="hover:text-white hover:font-bold" href="/toptracks">Top Tracks</Link>
-                    <div className="mx-2 group-hover:border-b group-hover:border-blue-500"></div>
-                </div>
+                {isLoggedIn && (
+                    <div className="group">
+                        <Link className="hover:text-white hover:font-bold" href="/toptracks">Top Tracks</Link>
+                        <div className="mx-2 group-hover:border-b group-hover:border-blue-500"></div>
+                    </div>
+                )}
                 <div className="group">
                     <Link className="hover:text-white hover:font-bold" href="/categories">Categories</Link>
                     <div className="mx-2 group-hover:border-b group-hover:border-blue-500"></div>
