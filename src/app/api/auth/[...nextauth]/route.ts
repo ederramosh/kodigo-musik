@@ -1,7 +1,9 @@
-import NextAuth from "next-auth";
+import { ExtendedToken, Token } from "@/types/next-auth";
+import NextAuth, { Account, User } from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
+import { JWT } from "next-auth/jwt";
 
-const refreshAccessToken = async (token: any) => {
+const refreshAccessToken = async (token: ExtendedToken): Promise<ExtendedToken> => {
   try {
     const basicAuth = Buffer.from(
       `${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}:${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET}`
@@ -15,13 +17,11 @@ const refreshAccessToken = async (token: any) => {
       },
       body: new URLSearchParams({
         grant_type: "refresh_token",
-        refresh_token: token.refreshToken!,
+        refresh_token: token.refreshToken,
       }),
     });
 
-    if (!res.ok) {
-      throw new Error("Failed to refresh token");
-    }
+    if (!res.ok) throw new Error("Failed to refresh token");
 
     const refreshed = await res.json();
 
@@ -53,33 +53,31 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, account, user }) {
-      // Primer inicio de sesión
+    async jwt({
+      token,
+      account,
+      user,
+    }: {
+      token: ExtendedToken;
+      account: Account | null;
+      user?: User;
+    }) {
       if (account && user) {
         return {
-          accessToken: account.access_token,
+          ...token,
+          accessToken: account.access_token!,
           accessTokenExpires: Date.now() + Number(account.expires_in ?? 3600) * 1000,
-          refreshToken: account.refresh_token,
+          refreshToken: account.refresh_token!,
           user,
         };
       }
-
-      // Token aún válido
-      if (Date.now() < (token.accessTokenExpires as number)) {
+    
+      if (Date.now() < token.accessTokenExpires) {
         return token;
       }
-
-      // Acceso expirado, refrescarlo
+    
       return await refreshAccessToken(token);
-    },
-
-    async session({ session, token }) {
-      session.user = token.user ?? {};
-      session.accessToken = token.accessToken;
-      session.error = token.error;
-      return session;
-    },
-  },
+    }}
 });
 
 export { handler as GET, handler as POST };

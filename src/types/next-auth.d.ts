@@ -31,3 +31,27 @@ declare module "next-auth/jwt" {
     error?: string;
   }
 }
+
+export interface Token {
+  accessToken: string;
+  accessTokenExpires: number;
+  refreshToken: string;
+  user?: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
+  error?: string;
+}
+
+export type ExtendedToken = JWT & {
+  accessToken: string;
+  accessTokenExpires: number;
+  refreshToken: string;
+  user?: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
+  error?: string;
+};

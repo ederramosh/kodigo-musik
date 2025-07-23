@@ -1,6 +1,7 @@
 'use client'
 
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 type Track = {
@@ -37,10 +38,12 @@ export default function TopTracksPage() {
       <ul className="space-y-4">
         {tracks.map((track) => (
           <li key={track.id} className="flex items-center space-x-4">
-            <img
+            <Image
               src={track.album.images[0]?.url}
               alt={track.name}
               className="w-16 h-16 rounded"
+              width={100}
+              height={100}
             />
             <div>
               <p className="font-semibold">{track.name}</p>
