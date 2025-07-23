@@ -16,6 +16,10 @@ const NavigationBar = () => {
                     <div className="mx-2 group-hover:border-b group-hover:border-blue-500"></div>
                 </div>
                 <div className="group">
+                    <Link className="hover:text-white hover:font-bold" href="/toptracks">Top Tracks</Link>
+                    <div className="mx-2 group-hover:border-b group-hover:border-blue-500"></div>
+                </div>
+                <div className="group">
                     <Link className="hover:text-white hover:font-bold" href="/categories">Categories</Link>
                     <div className="mx-2 group-hover:border-b group-hover:border-blue-500"></div>
                 </div>
