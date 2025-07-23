@@ -78,7 +78,12 @@ const handler = NextAuth({
       }
     
       return await refreshAccessToken(token);
-    }}
+    },
+    async session({ session, token }) {
+      session.accessToken = token.accessToken;
+      return session;
+    },
+  }
 });
 
 export { handler as GET, handler as POST };
